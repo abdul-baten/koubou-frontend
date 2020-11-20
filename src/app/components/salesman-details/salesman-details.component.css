@@ -1,0 +1,17 @@
+.salesman-details {
+  padding: 0;
+  overflow: hidden;
+}
+.salesman-details li{
+  float: left;
+  list-style: none;
+  padding: 6px;
+  min-height: 32px;
+}
+.salesman-details li:nth-child(odd) {
+  width: 40%;
+  font-weight: bold;
+}
+.salesman-details li:nth-child(even) {
+  width: 60%;
+}

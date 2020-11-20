@@ -1,0 +1,380 @@
+<router-outlet></router-outlet>
+<app-navigation></app-navigation>
+<div id="page-wrapper">
+  <div class="row">
+    <div class="col-xs-10 col-sm-8 col-md-7 search-box display-none">
+      <div class="row">
+        <div class="col-xs-12">
+          <ul class="search-top">
+            <li class="search-topli">
+              <span id="registerDate">案件登録日</span>
+            </li>
+            <li class="search-topli">
+              <span id="status">ステータス</span>
+            </li>
+            <li class="search-topli">
+              <span id="settlementMonth">決算月</span>
+            </li>
+            <li class="search-topli">
+              <span id="representativePersionBirthday">代表者生年月日</span>
+            </li>
+            <li class="search-topli">
+              <span id="updateDate">最終更新日</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <hr />
+      <div class="col-xs-12 no-padding">
+        <div class="col-xs-6 col-md-4 no-padding-xs padding-right-5">
+          <span id="projectTitle">案件名</span>
+        </div>
+        <div class="col-xs-6 col-md-4 no-padding-xs">
+          <span id="corporateName">法人名</span>
+        </div>
+        <div class="col-xs-6 col-md-4 no-padding-xs padding-right-5">
+          <span id="location">所在地</span>
+        </div>
+        <div class="col-xs-6 col-md-4 no-padding-xs">
+          <span id="industry">業種</span>
+        </div>
+        <div class="col-xs-6 col-md-4 no-padding-xs padding-right-5">
+          <span id="representativeName">代表者名</span>
+        </div>
+        <div class="col-xs-6 col-md-4 no-padding-xs">
+          <span id="salesRepresentativeName">営業担当者名</span>
+        </div>
+      </div>
+      <div class="col-xs-12 float-right">
+        <div class="col-xs-12 col-md-9">
+          <p style="color: red; margin-top: 10px">
+            ※ 項目毎にAND検索、項目内フィールドに追加でOR検索
+          </p>
+        </div>
+        <div class="col-xs-12 col-md-3">
+          <button class="btn btn-primary btn-search">検索</button>
+          <button class="btn btn-clear">リセット</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <table
+    *ngIf="role == '1'"
+    datatable
+    class="table table-bordered table-responsive"
+    id="ngDataTable"
+    style="width: 100%"
+  >
+    <thead>
+      <tr>
+        <th class="registerDate" style="display: none"></th>
+        <th class="representativePersionBirthday" style="display: none"></th>
+        <th class="updateDate" style="display: none"></th>
+        <th *ngIf="setting$?.inputDate === true" class="select-filter">
+          案件登録日
+        </th>
+        <th *ngIf="setting$?.status === true" class="select-filter status">
+          ステータス
+        </th>
+        <th *ngIf="setting$?.industry === true" class="select-filter industry">
+          業種
+        </th>
+        <th
+          *ngIf="setting$?.settlementMonth === true"
+          class="select-filter settlementMonth"
+        >
+          決算月
+        </th>
+        <th
+          *ngIf="setting$?.corporateName === true"
+          class="select-filter corporateName"
+        >
+          法人名
+        </th>
+        <th
+          *ngIf="setting$?.salesPersonlocation === true"
+          class="select-filter location"
+        >
+          所在地
+        </th>
+        <th
+          *ngIf="setting$?.representativePersionPhone === true"
+          class="select-filter"
+        >
+          法人電話番号
+        </th>
+        <th
+          *ngIf="setting$?.representativePersionName === true"
+          class="select-filter representativeName"
+        >
+          代表者名
+        </th>
+        <th
+          *ngIf="setting$?.caseName === true"
+          class="select-filter projectTitle"
+        >
+          案件名
+        </th>
+        <th
+          *ngIf="setting$?.salesPersonName === true"
+          class="select-filter salesRepresentativeName"
+        >
+          担当営業者名
+        </th>
+        <th
+          *ngIf="setting$?.representativePersionBirthday === true"
+          class="select-filter"
+        >
+          代表者生年月日
+        </th>
+        <th class="select-filter">最終更新日</th>
+        <th>ブックマーク</th>
+        <th></th>
+        <th>削除</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="odd gradeX" *ngFor="let case of caseList$">
+        <td style="display: none">{{ case.createdAt | slice: 0:7 }}</td>
+        <td style="display: none">
+          {{ case.clientInformation.representativeBirthday | slice: 0:7 }}
+        </td>
+        <td style="display: none">{{ case.updatedAt | slice: 0:7 }}</td>
+        <td *ngIf="setting$?.inputDate === true">{{ case.createdAt }}</td>
+        <td *ngIf="setting$?.status === true">{{ case.status }}</td>
+        <td *ngIf="setting$?.industry === true">
+          {{ case.clientInformation.industry | slice: 0:30 }}
+          <span *ngIf="case.clientInformation.industry.length >= 30">...</span>
+        </td>
+        <td *ngIf="setting$?.settlementMonth === true">
+          {{ case.clientInformation.settlementMonth }}
+        </td>
+        <td *ngIf="setting$?.corporateName === true">
+          {{ case.clientInformation.clientName | slice: 0:30 }}
+          <span *ngIf="case.clientInformation.clientName.length >= 30"
+            >...</span
+          >
+        </td>
+        <td *ngIf="setting$?.salesPersonlocation === true">
+          {{ case.clientInformation.location | slice: 0:30 }}
+          <span *ngIf="case.clientInformation.location.length >= 30">...</span>
+        </td>
+        <td *ngIf="setting$?.representativePersionPhone === true">
+          {{ case.clientInformation.phone | slice: 0:30 }}
+          <span *ngIf="case.clientInformation.phone.length >= 30">...</span>
+        </td>
+        <td *ngIf="setting$?.representativePersionName === true">
+          {{ case.clientInformation.representativeName | slice: 0:30 }}
+          <span *ngIf="case.clientInformation.representativeName.length >= 30"
+            >...</span
+          >
+        </td>
+        <td *ngIf="setting$?.caseName === true">
+          {{ case.name | slice: 0:30 }}
+          <span *ngIf="case.name.length >= 30">...</span>
+        </td>
+        <td *ngIf="setting$?.salesPersonName === true">
+          {{ case.salesPersonName | slice: 0:30 }}
+          <span *ngIf="case.salesPersonName.length >= 30">...</span>
+        </td>
+        <td *ngIf="setting$?.representativePersionBirthday === true">
+          {{ case.clientInformation.representativeBirthday | date: formaD }}
+        </td>
+        <td>{{ case.updatedAt }}</td>
+        <td>
+          <form name="form" (ngSubmit)="onSubmit()" #f="ngForm" novalidate>
+            <div class="col-xs-12">
+              <!-- <input
+                name="bookmark"
+                type="checkbox"
+                *ngIf="case.bookmark === true"
+                value="yes"
+                (change)="onCheckboxChange(case, $event)"
+                checked="checked"
+              /> -->
+              <label class="container-check" *ngIf="case.bookmark === true">
+                <input
+                  style="height: 13px;"
+                  name="bookmark"
+                  type="checkbox"
+                  [value]="yes"
+                  (change)="onCheckboxChange(case, $event)"
+                  checked="checked"
+                />
+                <span class="checkmark"></span>
+              </label>
+              <!-- <input
+                name="bookmark"
+                type="checkbox"
+                *ngIf="case.bookmark === false"
+                value="yes"
+                (change)="onCheckboxChange(case, $event)"
+              /> -->
+              <label class="container-check" *ngIf="case.bookmark === false">
+                <input
+                  style="height: 13px;"
+                  name="bookmark"
+                  type="checkbox"
+                  value="yes"
+                  (change)="onCheckboxChange(case, $event)"
+                />
+                <span class="checkmark"></span>
+              </label>
+            </div>
+          </form>
+        </td>
+        <td>
+          <a routerLink="/edit-case/{{ case.id }}">詳細</a>
+        </td>
+        <td>
+          <button (click)="onDelete($key, case.id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table
+    *ngIf="role == '2'"
+    datatable
+    class="table table-bordered table-responsive"
+    id="salesTable"
+    style="width: 100%"
+  >
+    <thead>
+      <tr>
+        <th class="registerDate" style="display: none"></th>
+        <th class="representativePersionBirthday" style="display: none"></th>
+        <th class="updateDate" style="display: none"></th>
+        <th *ngIf="setting$?.inputDate === true" class="select-filter">
+          案件登録日
+        </th>
+        <th *ngIf="setting$?.status === true" class="select-filter status">
+          ステータス
+        </th>
+        <th *ngIf="setting$?.industry === true" class="select-filter industry">
+          業種
+        </th>
+        <th
+          *ngIf="setting$?.settlementMonth === true"
+          class="select-filter settlementMonth"
+        >
+          決算月
+        </th>
+        <th
+          *ngIf="setting$?.corporateName === true"
+          class="select-filter corporateName"
+        >
+          法人名
+        </th>
+        <th
+          *ngIf="setting$?.salesPersonlocation === true"
+          class="select-filter location"
+        >
+          所在地
+        </th>
+        <th
+          *ngIf="setting$?.representativePersionPhone === true"
+          class="select-filter"
+        >
+          法人電話番号
+        </th>
+        <th
+          *ngIf="setting$?.representativePersionName === true"
+          class="select-filter representativeName"
+        >
+          代表者名
+        </th>
+        <th
+          *ngIf="setting$?.caseName === true"
+          class="select-filter projectTitle"
+        >
+          案件名
+        </th>
+        <th
+          *ngIf="setting$?.salesPersonName === true"
+          class="select-filter salesRepresentativeName"
+        >
+          担当営業者名
+        </th>
+        <th
+          *ngIf="setting$?.representativePersionBirthday === true"
+          class="select-filter"
+        >
+          代表者生年月日
+        </th>
+        <th class="select-filter">最終更新日</th>
+        <th>ブックマーク</th>
+        <th></th>
+        <th>削除</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="odd gradeX" *ngFor="let case of salesCaseList$">
+        <td style="display: none">{{ case.createdAt | slice: 0:7 }}</td>
+        <td style="display: none">
+          {{ case.clientInformation.representativeBirthday | slice: 0:7 }}
+        </td>
+        <td style="display: none">{{ case.updatedAt | slice: 0:7 }}</td>
+        <td *ngIf="setting$?.inputDate === true">{{ case.createdAt }}</td>
+        <td *ngIf="setting$?.status === true">{{ case.status }}</td>
+        <td *ngIf="setting$?.industry === true">
+          {{ case.clientInformation.industry | slice: 0:30 }}
+          <span *ngIf="case.clientInformation.industry.length >= 30">...</span>
+        </td>
+        <td *ngIf="setting$?.settlementMonth === true">
+          {{ case.clientInformation.settlementMonth }}
+        </td>
+        <td *ngIf="setting$?.corporateName === true">
+          {{ case.clientInformation.clientName | slice: 0:30 }}
+        </td>
+        <td *ngIf="setting$?.salesPersonlocation === true">
+          {{ case.clientInformation.location | slice: 0:30 }}
+        </td>
+        <td *ngIf="setting$?.representativePersionPhone === true">
+          {{ case.clientInformation.phone }}
+        </td>
+        <td *ngIf="setting$?.representativePersionName === true">
+          {{ case.clientInformation.representativeName | slice: 0:30 }}
+        </td>
+        <td *ngIf="setting$?.caseName === true">
+          {{ case.name | slice: 0:30 }}
+        </td>
+        <td *ngIf="setting$?.salesPersonName === true">
+          {{ case.salesPersonName | slice: 0:30 }}
+        </td>
+        <td *ngIf="setting$?.representativePersionBirthday === true">
+          {{ case.clientInformation.representativeBirthday | slice: 0:30 }}
+        </td>
+        <td>{{ case.updatedAt }}</td>
+        <td>
+          <form name="form" (ngSubmit)="onSubmit()" #f="ngForm" novalidate>
+            <div class="col-xs-12">
+              <input
+                name="bookmark"
+                type="checkbox"
+                *ngIf="case.bookmark === true"
+                value="yes"
+                (change)="onCheckboxChange(case, $event)"
+                checked="checked"
+              />
+              <input
+                name="bookmark"
+                type="checkbox"
+                *ngIf="case.bookmark === false"
+                value="yes"
+                (change)="onCheckboxChange(case, $event)"
+              />
+            </div>
+          </form>
+        </td>
+        <td>
+          <a routerLink="/edit-case/{{ case.id }}">詳細</a>
+        </td>
+        <td>
+          <button (click)="onDelete($key, case.id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

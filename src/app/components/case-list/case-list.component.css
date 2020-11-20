@@ -1,0 +1,124 @@
+#page-wrapper {
+  padding: 10px 0px 0 5px;
+}
+table.dataTable thead th, tfoot th {
+  padding: 5px 5px 10px 5px;
+  font-weight: normal;
+}
+.no-padding {
+  padding: 0px;
+}
+.show {
+  opacity: 1;
+  transition: opacity 1s;
+}
+
+.hide {
+  opacity: 0;
+  transition: opacity 1s;
+}
+
+div.dt-buttons {
+  float: right;
+}
+.dataTables_filter {
+  float: left;
+  color: red;
+}
+label {
+  width: 100%;
+}
+input.empty {
+  background-image: url(https://cdn4.iconfinder.com/data/icons/iconic/raster/16/magnifying_glass_alt.png);
+  background-position: 10px center;
+  background-repeat: no-repeat;
+  border: 1px solid #ccc;
+  padding: 5px 5px 5px 10px;
+  text-indent: 20px;
+  width: 200px;
+}
+
+input.no-icon{
+  padding: 5px 5px 5px 10px;
+  width: 200px;
+}
+
+ul.select2-choices {
+  padding-right: 30px !important;
+}
+
+ul.select2-choices:after {
+  content: "";
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-top: 5px solid #333;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+}
+.select2-container .select2-selection--multiple {
+  min-height: 34px;
+}
+.display-none {
+  /*display: none;*/
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+}
+.display-block {
+  display: block;
+}
+.search-box {
+  margin-bottom: 15px;
+  position: absolute;
+  z-index: 99;
+  background: #fff;
+  border: 1px solid #ddd;
+  padding: 20px 10px 20px 10px;
+  top: 87px;
+  left: 291px;
+}
+.float-right .btn {
+  float: right;
+  margin-top: 10px;
+  margin-left: 5px;
+}
+.search-top {
+  width: 100%;
+  padding: 0;
+}
+.search-topli {
+  width: 18%;
+  float: left;
+  list-style: none;
+  margin: 0 1%;
+}
+
+@media (min-width: 320px) and (max-width: 767px) {
+  .search-box {
+    padding: 20px 10px 20px 10px;
+    top: 180px;
+    left: 40px;
+  }
+  .search-topli {
+    width: 48%;
+  }
+  .padding-right-5 {
+    padding-right: 5px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .search-box {
+    padding: 20px 10px 20px 10px;
+    top: 125px;
+    left: 180px;
+  }
+  .search-topli {
+    width: 48%;
+  }
+  .padding-right-5 {
+    padding-right: 5px;
+  }
+}

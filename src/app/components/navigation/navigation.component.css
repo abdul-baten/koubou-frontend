@@ -1,0 +1,6 @@
+.navbar-nav>li {
+  float: none;
+}
+.navbar-default .navbar-nav>li>a {
+  color: #337ab7;
+}

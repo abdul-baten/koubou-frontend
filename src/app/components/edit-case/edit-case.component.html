@@ -1,0 +1,885 @@
+<router-outlet></router-outlet>
+<app-navigation></app-navigation>
+
+<div id="page-wrapper">
+  <div class="row" style="padding-top: 25px">
+    <div class="col-xs-12">
+      <form [formGroup]="myForm" (ngSubmit)="onSubmit()" (keydown.enter)="$event.preventDefault()">
+        <div class="panel panel-default">
+          <div class="col-md-3 col-sm-8 col-xs-8 panel-heading">
+            案件情報
+          </div>
+          <div class="col-md-2 col-sm-4 col-xs-4 panel-heading no-print">
+            <a routerLink="/case-list" class="btn-bac no-print">戻る</a>
+          </div>
+          <div class="col-md-3 col-sm-6 col-xs-6 panel-heading top-excel no-print">
+            <table id="caseTable" style="display: none">
+              <thead>
+                <tr>
+                  <th>案件登録日</th>
+                  <th>最終更新日</th>
+                  <th>案件名</th>
+                  <th>ステータス</th>
+                  <th>担当営業者名</th>
+                  <th>法人名</th>
+                  <th>法人名カナ</th>
+                  <th>所在地</th>
+                  <th>代表者電話番号</th>
+                  <th>業種</th>
+                  <th>決算月</th>
+                  <th>既加入保険</th>
+                  <th>【代表者】氏名</th>
+                  <th>【代表者】氏名カナ</th>
+                  <th>【代表者】生年月日</th>
+                  <th>【代表者】性別</th>
+                  <th>役員 - 1 氏名</th>
+                  <th>役員 - 1 氏名カナ</th>
+                  <th>役員 - 1 生年月日</th>
+                  <th>役員 - 1 性別</th>
+                  <th>役員 - 1 役職</th>
+                  <th>役員 - 1 代表との関係性</th>
+
+                  <th>役員 - 2 氏名</th>
+                  <th>役員 - 2 氏名カナ</th>
+                  <th>役員 - 2 生年月日</th>
+                  <th>役員 - 2 性別</th>
+                  <th>役員 - 2 役職</th>
+                  <th>役員 - 2 代表との関係性</th>
+
+                  <th>役員 - 3 氏名</th>
+                  <th>役員 - 3 氏名カナ</th>
+                  <th>役員 - 3 生年月日</th>
+                  <th>役員 - 3 性別</th>
+                  <th>役員 - 3 役職</th>
+                  <th>役員 - 3 代表との関係性</th>
+
+                  <th>
+                    ヒアリング：当初のご意向 記入日
+                  </th>
+
+                  <th *ngFor="let officer of case.interviewContent">
+                    {{ officer.question }}
+                  </th>
+                  <th>
+                    その他のご希望
+                  </th>
+                  <th>ヒアリング：最終的なご意向 記入日</th>
+                  <th>当初と最終との差異の説明</th>
+
+                  <th>商談履歴 対応日</th>
+                  <th>商談履歴 内容</th>
+                  <th>商談履歴 対応場所</th>
+                  <th>商談履歴 同席者</th>
+                  <th *ngIf="case.negotiationHistory?.length > 1">
+                    商談履歴 対応日
+                  </th>
+                  <th *ngIf="case.negotiationHistory?.length > 1">
+                    商談履歴 内容
+                  </th>
+                  <th *ngIf="case.negotiationHistory?.length > 1">
+                    商談履歴 対応場所
+                  </th>
+                  <th *ngIf="case.negotiationHistory?.length > 1">
+                    商談履歴 同席者
+                  </th>
+
+                  <th *ngIf="case.negotiationHistory?.length > 2">
+                    商談履歴 対応日
+                  </th>
+                  <th *ngIf="case.negotiationHistory?.length > 2">
+                    商談履歴 内容
+                  </th>
+                  <th *ngIf="case.negotiationHistory?.length > 2">
+                    商談履歴 対応場所
+                  </th>
+                  <th *ngIf="case.negotiationHistory?.length > 2">
+                    商談履歴 同席者
+                  </th>
+
+                  <th *ngIf="case.negotiationHistory?.length > 3">
+                    商談履歴 対応日
+                  </th>
+                  <th *ngIf="case.negotiationHistory?.length > 3">
+                    商談履歴 内容
+                  </th>
+                  <th *ngIf="case.negotiationHistory?.length > 3">
+                    商談履歴 対応場所
+                  </th>
+                  <th *ngIf="case.negotiationHistory?.length > 3">
+                    商談履歴 同席者
+                  </th>
+
+                  <th>情報提供の記録 ご提案商品</th>
+                  <th>情報提供の記録 使用した資料</th>
+                  <th>情報提供の記録 選定理由</th>
+                  <th>情報提供の記録 提供日</th>
+                  <th>情報提供の記録 契約チェック</th>
+
+                  <th *ngIf="case.provisionRecord?.length > 1">
+                    情報提供の記録 ご提案商品
+                  </th>
+                  <th *ngIf="case.provisionRecord?.length > 1">
+                    情報提供の記録 使用した資料
+                  </th>
+                  <th *ngIf="case.provisionRecord?.length > 1">
+                    情報提供の記録 選定理由
+                  </th>
+                  <th *ngIf="case.provisionRecord?.length > 1">
+                    情報提供の記録 提供日
+                  </th>
+                  <th *ngIf="case.provisionRecord?.length > 1">
+                    情報提供の記録 契約チェック
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{{ case?.createdAt }}</td>
+                  <td>{{ case?.updatedAt }}</td>
+                  <td>{{ case?.name }}</td>
+                  <td>{{ case?.status }}</td>
+                  <td>{{ case?.salesPersonName }}</td>
+                  <td>{{ case?.clientInformation?.clientName }}</td>
+                  <td>{{ case?.clientInformation?.corporateName }}</td>
+                  <td>{{ case?.clientInformation?.location }}</td>
+                  <td>{{ case?.clientInformation?.phone }}</td>
+                  <td>{{ case?.clientInformation?.industry }}</td>
+                  <td>{{ case?.clientInformation?.settlementMonth }}</td>
+                  <td>{{ case?.clientInformation?.enrolledInsurance }}</td>
+                  <td>{{ case?.clientInformation?.representativeName }}</td>
+                  <td>{{ case?.clientInformation?.representativeNameCeo }}</td>
+                  <td>
+                    {{
+                      case?.clientInformation?.representativeBirthday
+                        | date: formaD
+                    }}
+                  </td>
+                  <td>
+                    {{ case?.clientInformation?.representativePersonSex }}
+                  </td>
+                  <td>
+                    {{ (case?.officer)[0]?.officerName }}
+                  </td>
+                  <td>
+                    {{ (case?.officer)[0]?.officerNickName }}
+                  </td>
+                  <td>
+                    {{ (case?.officer)[0]?.officierBirthday | date: formaD }}
+                  </td>
+                  <td>
+                    {{ (case?.officer)[0]?.offcierSex }}
+                  </td>
+                  <td>
+                    {{ (case?.officer)[0]?.officierPosition }}
+                  </td>
+                  <td>
+                    {{ (case?.officer)[0]?.officerRelationWithReprentative }}
+                  </td>
+
+                  <td>
+                    {{ (case?.officer)[1]?.officerName }}
+                  </td>
+                  <td>
+                    {{ (case?.officer)[1]?.officerNickName }}
+                  </td>
+                  <td>
+                    {{ (case?.officer)[1]?.officierBirthday | date: formaD }}
+                  </td>
+                  <td>
+                    {{ (case?.officer)[1]?.offcierSex }}
+                  </td>
+                  <td>
+                    {{ (case?.officer)[1]?.officierPosition }}
+                  </td>
+                  <td>
+                    {{ (case?.officer)[1]?.officerRelationWithReprentative }}
+                  </td>
+
+                  <td>
+                    {{ (case?.officer)[2]?.officerName }}
+                  </td>
+                  <td>
+                    {{ (case?.officer)[2]?.officerNickName }}
+                  </td>
+                  <td>
+                    {{ (case?.officer)[2]?.officierBirthday | date: formaD }}
+                  </td>
+                  <td>
+                    {{ (case?.officer)[2]?.offcierSex }}
+                  </td>
+                  <td>
+                    {{ (case?.officer)[2]?.officierPosition }}
+                  </td>
+                  <td>
+                    {{ (case?.officer)[2]?.officerRelationWithReprentative }}
+                  </td>
+
+                  <td>
+                    {{ (case?.intentionDate)[0]?.intentionDate }}
+                  </td>
+
+                  <td *ngFor="let officer of case.interviewContent">
+                    <p *ngIf="officer.answer == true">
+                      ○
+                    </p>
+                  </td>
+                  <td>
+                    {{ (case?.differentInitialAndFinal)[1]?.different }}
+                  </td>
+                  <td>
+                    {{ (case?.intentionDate)[1]?.intentionDate }}
+                  </td>
+                  <td>
+                    {{ (case?.differentInitialAndFinal)[0]?.different }}
+                  </td>
+
+                  <td>
+                    {{ (case?.negotiationHistory)[0]?.number }}
+                  </td>
+                  <td>
+                    {{ (case?.negotiationHistory)[0]?.content }}
+                  </td>
+                  <td>
+                    {{ (case?.negotiationHistory)[0]?.location }}
+                  </td>
+                  <td>
+                    {{ (case?.negotiationHistory)[0]?.numberOfAttendant }}
+                  </td>
+
+                  <td *ngIf="case.negotiationHistory?.length > 1">
+                    {{ (case?.negotiationHistory)[1]?.number }}
+                  </td>
+                  <td *ngIf="case.negotiationHistory?.length > 1">
+                    {{ (case?.negotiationHistory)[1]?.content }}
+                  </td>
+                  <td *ngIf="case.negotiationHistory?.length > 1">
+                    {{ (case?.negotiationHistory)[1]?.location }}
+                  </td>
+                  <td *ngIf="case.negotiationHistory?.length > 1">
+                    {{ (case?.negotiationHistory)[1]?.numberOfAttendant }}
+                  </td>
+
+                  <td *ngIf="case.negotiationHistory?.length > 2">
+                    {{ (case?.negotiationHistory)[2]?.number }}
+                  </td>
+                  <td *ngIf="case.negotiationHistory?.length > 2">
+                    {{ (case?.negotiationHistory)[2]?.content }}
+                  </td>
+                  <td *ngIf="case.negotiationHistory?.length > 2">
+                    {{ (case?.negotiationHistory)[2]?.location }}
+                  </td>
+                  <td *ngIf="case.negotiationHistory?.length > 2">
+                    {{ (case?.negotiationHistory)[2]?.numberOfAttendant }}
+                  </td>
+
+                  <td *ngIf="case.negotiationHistory?.length > 3">
+                    {{ (case?.negotiationHistory)[3]?.number }}
+                  </td>
+                  <td *ngIf="case.negotiationHistory?.length > 3">
+                    {{ (case?.negotiationHistory)[3]?.content }}
+                  </td>
+                  <td *ngIf="case.negotiationHistory?.length > 3">
+                    {{ (case?.negotiationHistory)[3]?.location }}
+                  </td>
+                  <td *ngIf="case.negotiationHistory?.length > 3">
+                    {{ (case?.negotiationHistory)[3]?.numberOfAttendant }}
+                  </td>
+
+                  <td>
+                    {{ (case?.provisionRecord)[0]?.productName }}
+                  </td>
+                  <td>
+                    {{ (case?.provisionRecord)[0]?.materials }}
+                  </td>
+                  <td>
+                    {{ (case?.provisionRecord)[0]?.reasonOfSelection }}
+                  </td>
+                  <td>
+                    {{ (case?.provisionRecord)[0]?.date }}
+                  </td>
+                  <td>
+                    {{ (case?.provisionRecord)[0]?.contract }}
+                  </td>
+                  <td *ngIf="case.provisionRecord?.length > 1">
+                    {{ (case?.provisionRecord)[1]?.productName }}
+                  </td>
+                  <td *ngIf="case.provisionRecord?.length > 1">
+                    {{ (case?.provisionRecord)[1]?.materials }}
+                  </td>
+                  <td *ngIf="case.provisionRecord?.length > 1">
+                    {{ (case?.provisionRecord)[1]?.reasonOfSelection }}
+                  </td>
+                  <td *ngIf="case.provisionRecord?.length > 1">
+                    {{ (case?.provisionRecord)[1]?.date }}
+                  </td>
+                  <td *ngIf="case.provisionRecord?.length > 1">
+                    {{ (case?.provisionRecord)[1]?.contract }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-md-2 col-sm-3 col-xs-3 print no-print">
+            <a href="javascript:window.print()" target="_blank" class="btn">プリント</a>
+          </div>
+          <div class="col-md-2 col-sm-3 col-xs-3 panel-heading no-print" style="text-align: right;">
+            <a routerLink="/update-case/{{ id }}" class="btn-bac no-print" style="text-align: right;">編集</a>
+          </div>
+
+          <div class="panel-body case-details">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="col-xs-12 no-padding">
+                  <div class="form-group">
+                    <input type="hidden" class="form-control" formControlName="id" />
+                    <p *ngIf="case.name">{{ case.name }}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-12 no-padding">
+                <div class="col-xs-6">
+                  <div class="form-group">
+                    <p *ngIf="case.status">{{ case.status }}</p>
+                  </div>
+                </div>
+                <div class="col-xs-6">
+                  <div class="form-group">
+                    <p *ngIf="case.salesPersonName">
+                      {{ case.salesPersonName }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div formArrayName="clientInformation" *ngFor="
+            let item of myForm.get('clientInformation').controls;
+            let i = index
+          ">
+          <div [formGroupName]="i">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                顧客情報
+              </div>
+              <div class="panel-body padding-left-0-xs padding-right-0-xs">
+                <div class="col-xs-12 no-padding">
+                  <div class="col-xs-6">
+                    <div class="form-group">
+                      <p *ngIf="case.clientInformation.clientName">
+                        {{ case.clientInformation.clientName }}
+                      </p>
+                      <!--<textarea class="form-control" formControlName="clientName" placeholder="法人名" readonly="readonly" autosize rows="1"></textarea>-->
+                    </div>
+                  </div>
+                  <div class="col-xs-6">
+                    <div class="form-group">
+                      <p *ngIf="case.clientInformation.corporateName">
+                        {{ case.clientInformation.corporateName }}
+                      </p>
+                      <!--<textarea class="form-control" formControlName="corporateName" placeholder="法人名フリガナ" readonly="readonly" autosize rows="1"></textarea>-->
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-12 no-padding">
+                  <div class="col-xs-6">
+                    <div class="form-group">
+                      <p *ngIf="case.clientInformation.location">
+                        {{ case.clientInformation.location }}
+                      </p>
+                      <!--<textarea class="form-control" formControlName="location" placeholder="所在地" readonly="readonly" autosize rows="1"></textarea>-->
+                    </div>
+                  </div>
+                  <div class="col-xs-6">
+                    <div class="form-group">
+                      <p *ngIf="case.clientInformation.phone">
+                        {{ case.clientInformation.phone }}
+                      </p>
+                      <!--<input class="form-control" type="text" formControlName="phone" placeholder="法人電話番号" readonly="readonly">-->
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-12 no-padding">
+                  <div class="col-xs-6">
+                    <div class="form-group">
+                      <p *ngIf="case.clientInformation.industry">
+                        {{ case.clientInformation.industry }}
+                      </p>
+                      <!--<textarea class="form-control" formControlName="industry" placeholder="業種" readonly="readonly" autosize rows="1"></textarea>-->
+                    </div>
+                  </div>
+                  <div class="col-xs-6">
+                    <div class="form-group">
+                      <p *ngIf="case.clientInformation.settlementMonth">
+                        {{ case.clientInformation.settlementMonth }}
+                      </p>
+                      <!--<input type="text" class="form-control" formControlName="settlementMonth" readonly="readonly" placeholder="決算月">-->
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-12 no-padding">
+                  <div class="col-xs-6">
+                    <div class="form-group">
+                      <p *ngIf="case.clientInformation.enrolledInsurance">
+                        {{ case.clientInformation.enrolledInsurance }}
+                      </p>
+                      <!--<textarea class="form-control" formControlName="enrolledInsurance" placeholder="既加入保険" readonly="readonly" autosize rows="1"></textarea>-->
+                    </div>
+                  </div>
+                  <div class="col-xs-6"></div>
+                </div>
+
+                <div class="col-xs-12 no-padding">
+                  <div class="col-xs-6">
+                    <div class="form-group">
+                      <p *ngIf="case.clientInformation.representativeName">
+                        {{ case.clientInformation.representativeName }}
+                      </p>
+                      <!--<textarea class="form-control" formControlName="representativeName" placeholder="【代表者】氏名" readonly="readonly" autosize rows="1"></textarea>-->
+                    </div>
+                  </div>
+                  <div class="col-xs-6">
+                    <div class="form-group">
+                      <p *ngIf="case.clientInformation.representativeNameCeo">
+                        {{ case.clientInformation.representativeNameCeo }}
+                      </p>
+                      <!--<textarea class="form-control" formControlName="representativeNameCeo" placeholder="【代表者】氏名フリガナ" readonly="readonly" autosize rows="1"></textarea>-->
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-12 no-padding">
+                  <div class="col-xs-6">
+                    <div class="form-group" style="margin-bottom: 0px">
+                      <p *ngIf="case.clientInformation.representativeBirthday">
+                        {{
+                          case.clientInformation.representativeBirthday
+                            | date: formaD
+                        }}
+                      </p>
+                      <!--<mat-form-field>
+                        <input matInput formControlName="representativeBirthday" [matDatepicker]="picker" placeholder="生年月日" readonly="readonly">
+                      </mat-form-field>-->
+                    </div>
+                  </div>
+                  <div class="col-xs-6">
+                    <div class="form-group">
+                      <p *ngIf="case.clientInformation.representativePersonSex">
+                        {{ case.clientInformation.representativePersonSex }}
+                      </p>
+                      <!--<input type="text" class="form-control" formControlName="representativePersonSex" readonly="readonly" placeholder="【代表者】">-->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div formArrayName="officer" *ngFor="let item of myForm.get('officer').controls; let i = index">
+          <div [formGroupName]="i">
+            <div class="panel panel-default">
+              <div class="panel-heading">役員 - {{ i + 1 }}</div>
+              <div class="panel-body padding-left-0-xs padding-right-0-xs">
+                <div class="col-xs-12 no-padding">
+                  <div class="col-xs-12 no-padding">
+                    <div class="col-xs-6">
+                      <div class="form-group">
+                        <p *ngIf="case.officer[i].officerName">
+                          {{ case.officer[i].officerName }}
+                        </p>
+                        <!--<textarea class="form-control" formControlName="officerName" placeholder="氏名" readonly="readonly" autosize rows="1"></textarea>-->
+                      </div>
+                    </div>
+                    <div class="col-xs-6">
+                      <div class="form-group">
+                        <p *ngIf="case.officer[i].officerNickName">
+                          {{ case.officer[i].officerNickName }}
+                        </p>
+                        <!--<textarea class="form-control" formControlName="officerNickName" placeholder="氏名フリガナ" readonly="readonly" autosize rows="1"></textarea>-->
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 no-padding">
+                    <div class="col-xs-6">
+                      <div class="form-group">
+                        <p *ngIf="case.officer[i].officierBirthday">
+                          {{ case.officer[i].officierBirthday | date: formaD }}
+                        </p>
+                        <!--<mat-form-field>
+                          <input matInput formControlName="officierBirthday" [matDatepicker]="picker" placeholder="生年月日" readonly="readonly">
+                        </mat-form-field>-->
+                      </div>
+                    </div>
+                    <div class="col-xs-6">
+                      <div class="form-group">
+                        <p *ngIf="case.officer[i].offcierSex">
+                          {{ case.officer[i].offcierSex }}
+                        </p>
+                        <!--<input type="text" class="form-control" formControlName="offcierSex" placeholder="性別" readonly="readonly">-->
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 no-padding">
+                    <div class="col-xs-6">
+                      <div class="form-group">
+                        <p *ngIf="case.officer[i].officierPosition">
+                          {{ case.officer[i].officierPosition }}
+                        </p>
+                        <!--<textarea class="form-control" formControlName="officierPosition" placeholder="役職" readonly="readonly" autosize rows="1"></textarea>-->
+                      </div>
+                    </div>
+                    <div class="col-xs-6">
+                      <div class="form-group">
+                        <p *ngIf="
+                            case.officer[i].officerRelationWithReprentative
+                          ">
+                          {{ case.officer[i].officerRelationWithReprentative }}
+                        </p>
+                        <!--<textarea class="form-control" formControlName="officerRelationWithReprentative" placeholder="代表との関係性" readonly="readonly" autosize rows="1"></textarea>-->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel panel-default">
+          <!--<div class="panel-heading">
+            ヒアリング：当初のご意向
+          </div>-->
+          <div class="col-xs-12 panel-heading" style="margin-bottom: 10px">
+            <div class="col-xs-12 no-padding-xs">
+              <div class="col-sm-10 col-xs-12 no-padding-xs">
+                <div class="col-xs-12 no-padding">
+                  <h4>ヒアリング</h4>
+                  <h6>お客様のご意向について</h6>
+                  <h6>※最初に印のついた項目の下のご希望項目の有無をチェック</h6>
+                  <h6>
+                    チェックが入った項目があれば、その属する印のご意向にチェックを入れる
+                  </h6>
+                </div>
+                <div class="col-md-2 col-xs-12">
+                  ご確認日
+                </div>
+                <div class="col-md-5 col-xs-12">
+                  <div formArrayName="firstIntentionDate" *ngFor="
+                      let hero of myForm.get('firstIntentionDate').controls;
+                      let i = index
+                    ">
+                    <div [formGroupName]="i">
+                      <div class="col-xs-2 no-padding">
+                        <h6 class="margin-top-10">当初：</h6>
+                      </div>
+                      <div class="col-xs-10" style="padding-left: 0px">
+                        <div class="form-group">
+                          <input class="form-control" type="hidden" formControlName="id" />
+                          <input class="form-control" type="hidden" formControlName="entity" />
+                          <p>
+                            {{
+                              case.intentionDate[i].intentionDate | date: formaD
+                            }}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-5 col-xs-12">
+                  <div class="col-xs-2">
+                    <h6 class="margin-top-10">最終</h6>
+                  </div>
+                  <div class="col-xs-10">
+                    <div formArrayName="secondIntentionDate" *ngFor="
+                        let hero of myForm.get('secondIntentionDate').controls;
+                        let i = index
+                      ">
+                      <div [formGroupName]="i">
+                        <div class="form-group">
+                          <input class="form-control" type="hidden" formControlName="id" />
+                          <input class="form-control" type="hidden" formControlName="entity" />
+                          <p *ngIf="case.intentionDate[1].intentionDate">
+                            {{
+                              case.intentionDate[1].intentionDate | date: formaD
+                            }}
+                          </p>
+                          <!--<input class="form-control" type="date" formControlName="intentionDate" readonly="readonly">-->
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-1 col-sm-1 col-xs-6">
+                当 初 の ご 意 向
+              </div>
+              <div class="col-md-1 col-sm-1 col-xs-6">
+                最 終 的 な ご 意 向
+              </div>
+            </div>
+          </div>
+
+          <div class="panel-body fix">
+            <div class="row no-padding">
+              <div class="col-xs-11 no-padding-sm no-padding-xs">
+                <div formArrayName="firstIntentionsFixed" *ngFor="
+                    let hero of myForm.get('firstIntentionsFixed').controls;
+                    let i = index
+                  " [attr.data-index]="i" [class]="'question-height fix question-name' + (i + 1)">
+                  <div [formGroupName]="i">
+                    <div class="col-xs-12 no-padding">
+                      <div class="col-xs-11 padding-left-10 max-90-xs fixed-question">
+                        <p>{{ case.interviewContent[i].question }}</p>
+                      </div>
+                      <div class="col-xs-1 text-center border">
+                        <div class="form-group">
+                          <label class="container-check">
+                            <input style="height: 13px;" type="checkbox" formControlName="answer" value="yes"
+                              disabled />
+                            <span class="checkmark"></span>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-1 no-padding-xs">
+                <div formArrayName="secondIntentionsFixed" *ngFor="
+                    let hero of myForm.get('secondIntentionsFixed').controls;
+                    let i = index
+                  " [attr.data-index]="i" [class]="'question-height question-name' + (i + 1)">
+                  <div [formGroupName]="i">
+                    <div class="col-xs-12 no-padding border text-center">
+                      <div class="form-group">
+                        <label class="container-check">
+                          <input style="height: 13px;" type="checkbox" formControlName="answer" value="yes"
+                            readonly="readonly" disabled />
+                          <span class="checkmark"></span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row no-padding">
+              <div class="col-xs-11 no-padding-xs no-padding-sm">
+                <div formArrayName="intentionsDaynamic" *ngFor="
+                    let item of myForm.get('intentionsDaynamic').controls;
+                    let i = index
+                  ">
+                  <div [formGroupName]="i">
+                    <div class="col-xs-12 no-padding">
+                      <div class="col-xs-11 no-padding-xs">
+                        <p>
+                          {{
+                            myForm.controls.intentionsDaynamic.controls[i]
+                              .controls.questionName.value
+                          }}
+                        </p>
+                      </div>
+                      <div class="col-xs-1 text-center border no-padding-xs">
+                        <div class="form-group">
+                          <label class="container-check">
+                            <input style="height: 13px;" type="checkbox" formControlName="answer" value="yes"
+                              readonly="readonly" disabled />
+                            <span class="checkmark"></span>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-1 no-padding-xs">
+                <div formArrayName="secondIntentionsDaynamic" *ngFor="
+                    let item of myForm.get('secondIntentionsDaynamic').controls;
+                    let i = index
+                  ">
+                  <div [formGroupName]="i">
+                    <div class="col-xs-12 no-padding">
+                      <!--<div class="col-xs-1  no-padding">
+                        <div class="form-group">
+                          <input class="form-control" type="hidden" formControlName="questionName" readonly="readonly">
+                        </div>
+                      </div>-->
+                      <div class="col-xs-12 no-padding border text-center">
+                        <div class="form-group">
+                          <label class="container-check">
+                            <input style="height: 13px;" type="checkbox" formControlName="answer" value="yes"
+                              readonly="readonly" disabled />
+                            <span class="checkmark"></span>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-xs-12 no-padding-xs">
+                <div formArrayName="othernotes" *ngFor="
+                    let item of myForm.get('othernotes').controls;
+                    let i = index
+                  ">
+                  <div [formGroupName]="i">
+                    <div class="col-xs-12" style="margin-top: 20px;">
+                      <label>その他のご希望</label>
+                      <div class="form-group">
+                        <p *ngIf="case.differentInitialAndFinal[1].different">
+                          {{ case.differentInitialAndFinal[1].different }}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-xs-12 no-padding-xs">
+                <div formArrayName="differentBetween" *ngFor="
+                    let item of myForm.get('differentBetween').controls;
+                    let i = index
+                  ">
+                  <div [formGroupName]="i">
+                    <div class="col-xs-12">
+                      <label>当初と最終との差異の説明</label>
+                      <div class="form-group">
+                        <p *ngIf="case.differentInitialAndFinal[0].different">
+                          {{ case.differentInitialAndFinal[0].different }}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            商談履歴
+          </div>
+          <div class="panel-body">
+            <div class="col-xs-12 no-padding">
+              <div formArrayName="negotiationHistory" *ngFor="
+                  let item of myForm.get('negotiationHistory').controls;
+                  let i = index
+                " readonly="readonly">
+                <div [formGroupName]="i">
+                  <div class="col-xs-12 no-padding">
+                    <div class="col-md-3 col-xs-12 no-padding">
+                      <label>対応日 {{ i + 1 }}</label>
+                      <div class="form-group">
+                        <p *ngIf="case.negotiationHistory[i].number">
+                          {{ case.negotiationHistory[i].number | date: formaD }}
+                        </p>
+                        <!--<input class="form-control" type="date" formControlName="number" readonly="readonly">-->
+                      </div>
+                    </div>
+                    <div class="col-md-3 col-xs-12 no-padding">
+                      <label>内容 {{ i + 1 }}</label>
+                      <div class="form-group">
+                        <p *ngIf="case.negotiationHistory[i].content">
+                          {{ case.negotiationHistory[i].content }}
+                        </p>
+                        <!--<textarea class="form-control" type="text" formControlName="content" readonly="readonly" autosize rows="1"></textarea>-->
+                      </div>
+                    </div>
+                    <div class="col-md-3 col-xs-12 no-padding">
+                      <label>対応場所 {{ i + 1 }}</label>
+                      <div class="form-group">
+                        <p *ngIf="case.negotiationHistory[i].location">
+                          {{ case.negotiationHistory[i].location }}
+                        </p>
+                        <!--<textarea class="form-control" type="text" formControlName="location" readonly="readonly" autosize rows="1"></textarea>-->
+                      </div>
+                    </div>
+                    <div class="col-md-3 col-xs-12 no-padding">
+                      <label>同席者 {{ i + 1 }}</label>
+                      <div class="form-group">
+                        <p *ngIf="case.negotiationHistory[i].numberOfAttendant">
+                          {{ case.negotiationHistory[i].numberOfAttendant }}
+                        </p>
+                        <!--<textarea class="form-control" rows="1" formControlName="numberOfAttendant" readonly autosize rows="1"></textarea>-->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            情報提供の記録
+          </div>
+          <div class="panel-body">
+            <div class="col-xs-12 no-padding">
+              <div formArrayName="provisionRecord" *ngFor="
+                  let item of myForm.get('provisionRecord').controls;
+                  let i = index
+                ">
+                <div [formGroupName]="i">
+                  <div class="col-xs-12 no-padding">
+                    <div class="col-md-2 col-xs-12 no-padding">
+                      <label>ご提案商品 {{ i + 1 }}</label>
+                      <div class="form-group">
+                        <p *ngIf="case.provisionRecord[i].productName">
+                          {{ case.provisionRecord[i].productName }}
+                        </p>
+                        <!--<textarea class="form-control" type="text" formControlName="productName" readonly="readonly" autosize rows="1"></textarea>-->
+                      </div>
+                    </div>
+                    <div class="col-md-3 col-xs-12 no-padding">
+                      <label>使用した資料 {{ i + 1 }}</label>
+                      <div class="form-group">
+                        <p *ngIf="case.provisionRecord[i].materials">
+                          {{ case.provisionRecord[i].materials }}
+                        </p>
+                        <!--<textarea class="form-control" type="text" formControlName="materials" readonly="readonly" autosize rows="1"></textarea>-->
+                      </div>
+                    </div>
+                    <div class="col-md-4 col-xs-12 no-padding">
+                      <label>ご説明内容 {{ i + 1 }}</label>
+                      <div class="form-group pd-20-pt">
+                        <p *ngIf="case.provisionRecord[i].reasonOfSelection">
+                          {{ case.provisionRecord[i].reasonOfSelection }}
+                        </p>
+                        <!--<textarea class="form-control" type="text" formControlName="reasonOfSelection" readonly="readonly" autosize></textarea>-->
+                      </div>
+                    </div>
+                    <div class="col-md-2 col-xs-9 no-padding">
+                      <label>提供日 {{ i + 1 }}</label>
+                      <div class="form-group">
+                        <p *ngIf="case.provisionRecord[i].date">
+                          {{ case.provisionRecord[i].date }}
+                        </p>
+                        <!--<input class="form-control" type="date" formControlName="date" readonly="readonly">-->
+                      </div>
+                    </div>
+                    <div class="col-md-1 col-xs-3">
+                      <label>成約</label>
+                      <div class="form-group">
+                        <!-- <input class="form-control" type="text" formControlName="contract"> -->
+                        <label class="container-check">
+                          <input style="height: 13px;" type="checkbox" formControlName="contract" value="yes"
+                            readonly="readonly" disabled />
+                          <span class="checkmark" style="left:6px;"></span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

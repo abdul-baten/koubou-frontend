@@ -1,0 +1,16 @@
+p {
+  border: 1px solid #dddddd;
+  padding: 7px;
+}
+.panel-heading {
+  height: 41px;
+}
+.form-control {
+  min-height: 40px !important;
+}
+@media (min-width: 320px) and (max-width: 767px) {
+
+}
+@media (min-width: 767px) and (max-width: 991px) {
+
+}

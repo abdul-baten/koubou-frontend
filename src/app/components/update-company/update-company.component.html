@@ -1,0 +1,98 @@
+<router-outlet></router-outlet>
+<app-navigation></app-navigation>
+<div id="page-wrapper">
+  <div class="row" style="padding-top: 25px">
+    <div class="col-xs-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          会社情報
+        </div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-xs-12 no-padding-xs">
+              <form [formGroup]="orderForm" (ngSubmit)="onSubmit()" (keydown.enter)="$event.preventDefault()">
+                <div class="col-xs-12 no-padding">
+                  <div class="col-xs-12">
+                    <div class="form-group">
+                      <input type="text" class="form-control" formControlName="company_name">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-12 no-padding">
+                  <div class="col-sm-6 col-xs-12">
+                    <div class="form-group">
+                      <textarea type="text" class="form-control" formControlName="location" autosize (keypress)="stopEnter($event)" rows="1"></textarea>
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-xs-12">
+                    <div class="form-group">
+                      <input type="text" class="form-control" formControlName="phone_number"/>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-12 no-padding">
+                  <div class="col-xs-12">
+                    <div class="form-group">
+                      <input type="text" class="form-control" formControlName="website_link" />
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-12  no-padding">
+                  <div formArrayName="supplier" *ngFor="let item of orderForm.get('supplier').controls; let i = index;">
+                    <fieldset>
+                      <legend style="padding-left: 15px">取引先 - {{i+1}}</legend>
+                      <div class="ui raised segments" [formGroupName]="i">
+                        <div class="col-sm-6 col-xs-12">
+                          <div class="form-group">
+                            <input type="hidden" class="form-control" formControlName="id" placeholder="保険会社名" />
+                            <textarea type="text" class="form-control" formControlName="subCompanyName" placeholder="保険会社名" autosize (keypress)="stopEnter($event)" rows="1"></textarea>
+                          </div>
+                        </div>
+                        <div class="col-sm-6 col-xs-12">
+                          <div class="form-group">
+                            <input type="text" class="form-control" formControlName="departmentName" placeholder="部署名" />
+                          </div>
+                        </div>
+                        <div class="col-sm-6 col-xs-12">
+                          <div class="form-group">
+                            <textarea type="text" class="form-control" formControlName="location" placeholder="所在地" autosize (keypress)="stopEnter($event)" rows="1"></textarea>
+                          </div>
+                        </div>
+                        <div class="col-sm-6 col-xs-12">
+                          <div class="form-group">
+                            <input type="text" class="form-control" formControlName="phone" placeholder="電話番号" />
+                          </div>
+                        </div>
+                        <div class="col-xs-12">
+                          <div class="form-group">
+                            <input type="text" class="form-control" formControlName="representativeInCharge" placeholder="担当者名" />
+                          </div>
+                        </div>
+                        <div class="col-md-offset-10 col-md-2 col-xs-6 col-xs-offset-6">
+                          <a class="remove-supplier" (click)="removeSupplier(i)">取引先を削除</a>
+                        </div>
+                      </div>
+                    </fieldset>
+                  </div>
+                  <div class="col-xs-12 no-padding">
+                    <div class="col-md-3 col">
+                      <a class="add-supplier" (click)="addSupplier(orderForm.get('supplier').length)">取引先を追加</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-12  no-padding" style="margin-top: 15px">
+                  <div class="col-xs-4 col-xs-offset-4">
+                    <button class="form-control register-company btn btn-primary" type="submit">保存する</button>
+                  </div>
+                  <div class="col-md-offset-2 col-md-2 col-xs-3 col-xs-offset-1">
+                    <a routerLink="/company-information/1" class="btn btn-primary form-control">戻る</a>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

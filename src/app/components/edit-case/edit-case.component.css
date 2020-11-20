@@ -1,0 +1,203 @@
+p {
+  border: 1px solid #dddddd;
+  padding: 7px;
+}
+.btn-back {
+  float: right;
+}
+.btn-bac {
+  padding: 7px;
+  color: #fff;
+  background: #337ab7;
+  border-radius: 3px;
+}
+.dataTables_filter {
+  display: none;
+}
+.top-excel {
+  padding: 2px 2px 1px 2px;
+  text-align: right;
+}
+
+.question-name1 .form-control {
+  background-color: #99f09c;
+}
+.question-name11 .form-control {
+  background-color: #f2cee4;
+}
+.question-name22 .form-control {
+  background-color: #cde2ed;
+}
+
+.question-name30 .form-control {
+  background-color: #f9dcb0;
+}
+.mat-form-field {
+  width: 100%;
+  border-top: 1px solid #ddd;
+  border-left: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+}
+
+.mat-form-field-wrapper {
+  padding-bottom: 0;
+  background: #eee;
+  border-bottom: 1px solid #ccc;
+}
+
+.print {
+  padding: 2px 0px 1px 0px;
+  background-color: #f5f5f5;
+  border-bottom: 1px solid #ddd;
+}
+.print .btn {
+  position: relative;
+  display: inline-block;
+  box-sizing: border-box;
+  margin-right: 0.333em;
+  margin-bottom: 0.333em;
+  padding: 0.5em 1em;
+  border: 1px solid #999;
+  border-radius: 2px;
+  cursor: pointer;
+  font-size: 0.88em;
+  line-height: 1.6em;
+  color: black;
+  white-space: nowrap;
+  overflow: hidden;
+  background-color: #e9e9e9;
+  background-image: -webkit-linear-gradient(top, white 0%, #e9e9e9 100%);
+  background-image: -moz-linear-gradient(top, white 0%, #e9e9e9 100%);
+  background-image: -ms-linear-gradient(top, white 0%, #e9e9e9 100%);
+  background-image: -o-linear-gradient(top, white 0%, #e9e9e9 100%);
+  background-image: linear-gradient(to bottom, white 0%, #e9e9e9 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='white', EndColorStr='#e9e9e9');
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  text-decoration: none;
+  outline: none;
+}
+.no-padding {
+  padding: 0px;
+}
+input[type="checkbox"] {
+  margin-top: 12px;
+}
+
+@media print {
+  .no-print,
+  .no-print * {
+    display: none !important;
+  }
+  input[type="text"] {
+    font-size: 12px;
+  }
+  @page {
+    size: landscape;
+    margin: 0;
+  }
+  body {
+    margin: 1.6cm;
+  }
+
+  .form-control {
+    font-size: 11px;
+    padding: 0px;
+  }
+  textarea {
+    overflow: hidden !important;
+  }
+}
+
+.mat-form-field {
+  border-bottom: 1px solid #dddddd !important;
+}
+
+.margin-top-10 {
+  margin-top: 10px;
+}
+/*.question-height {
+  height: 46px;
+}*/
+
+.border {
+  border-left: 1px solid #dddddd;
+  border-right: 1px solid #dddddd;
+  height: 46px;
+}
+.case-details {
+  padding-top: 55px;
+}
+.padding-left-10 {
+  padding-left: 10px;
+}
+.checkbox-height {
+  height: 13px;
+}
+@media (min-width: 320px) and (max-width: 767px) {
+  .border {
+    border-left: 0px !important;
+    border-right: 0px !important;
+  }
+  p {
+    font-size: 11px;
+    padding: 7px 4px;
+  }
+  .case-details {
+    padding-top: 90px;
+  }
+  .padding-left-0-xs {
+    padding-left: 0;
+  }
+  .padding-right-0-xs {
+    padding-right: 0;
+  }
+  .padding-left-10 {
+    padding-left: 0;
+  }
+  #page-wrapper {
+    padding: 0 5px;
+  }
+  .checkbox-height {
+    height: 13px;
+  }
+  .question-height {
+    height: 46px;
+  }
+  input[type="checkbox"] {
+    margin-top: 10px;
+  }
+  .max-90-xs {
+    max-width: 90%;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .border {
+    border-left: 0px;
+    border-right: 0px;
+  }
+  p {
+    font-size: 11px;
+    padding: 7px 4px;
+  }
+  .no-padding-sm {
+    padding: 0;
+  }
+  .question-height {
+    height: 46px;
+  }
+}
+
+.fix {
+  overflow: hidden;
+}
+.height-34 {
+  min-height: 34px;
+}
+
+.checkmark {
+  opacity: 0.5;
+}

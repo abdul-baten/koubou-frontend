@@ -1,0 +1,147 @@
+.no-padding {
+  padding: 0px;
+}
+/*.question-height {
+  height: 46px;
+}*/
+
+.ng-valid[required],
+.ng-valid.required {
+  border-left: 5px solid #42a948; /* green */
+}
+
+.ng-invalid:not(form) {
+  border-left: 5px solid #a94442; /* red */
+}
+
+.entry:not(:first-of-type) {
+  margin-top: 10px;
+}
+
+.glyphicon {
+  font-size: 12px;
+}
+.add-suppliers-btn {
+  position: absolute;
+  bottom: 30px;
+  right: 45px;
+}
+.register-company {
+  margin-top: 30px;
+}
+.customers-group > .ng-invalid[_ngcontent-c1]:not(form) {
+  border-left: none !important;
+}
+.customers-group {
+  border-left: none !important;
+}
+.invalid-feedback {
+  color: red;
+}
+.btn-case {
+  padding: 7px;
+  border: 1px solid #dddddd;
+  border-radius: 5px;
+}
+.float-right {
+  float: right;
+}
+
+.question-name1 .form-control {
+  background-color: #99f09c;
+}
+.question-name11 .form-control {
+  background-color: #f2cee4;
+}
+.question-name22 .form-control {
+  background-color: #cde2ed;
+}
+
+.question-name30 .form-control {
+  background-color: #f9dcb0;
+}
+
+.sync {
+  background-color: #f9dcb0;
+  padding: 20px 0px 49px 0px;
+  text-align: center;
+  width: 90%;
+  border-radius: 10px;
+}
+
+.mat-form-field {
+  width: 100%;
+  border-top: 1px solid #ddd;
+  border-left: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+}
+
+input[type="checkbox"] {
+  margin-top: 16px;
+}
+/*.form-control {
+  min-height: 34px;
+}*/
+
+.mat-form-field {
+  border-bottom: 1px solid #dddddd !important;
+}
+::ng-deep .mat-form-field .mat-form-field-underline {
+  height: 0px !important;
+}
+::ng-deep .mat-focused .mat-form-field-underline {
+  height: 0px !important;
+}
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-underline {
+  background: none !important;
+}
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-wrapper {
+  padding-bottom: 0px;
+}
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-underline {
+  bottom: 0;
+}
+/*::ng-deep .mat-form-field-appearance-legacy .mat-form-field-wrapper {
+  padding-bottom: 0 !important;
+}*/
+::ng-deep .mat-input-element {
+  caret-color: #ddd;
+}
+
+.margin-top-10 {
+  margin-top: 10px;
+}
+
+.border {
+  border-left: 1px solid #dddddd;
+  border-right: 1px solid #dddddd;
+  height: 49px;
+}
+
+@media (min-width: 320px) and (max-width: 767px) {
+  .no-padding-left-xs {
+    padding-left: 0;
+  }
+  .no-padding-right-xs {
+    padding-right: 0;
+  }
+
+  .border {
+    border-left: 0px;
+    border-right: 0px;
+    padding-left: 10px;
+  }
+
+  input[type="checkbox"] {
+    margin-left: 0px;
+    margin-top: 16px;
+  }
+}
+
+.update-checkmark {
+  left: 70px !important;
+  top: 7px !important;
+}
+.update-checkmark-end {
+  left: 7px;
+}

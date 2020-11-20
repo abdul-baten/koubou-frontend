@@ -1,0 +1,21 @@
+.no-padding {
+  padding: 0px;
+}
+.remove-supplier {
+  padding: 7px;
+  border: 1px solid #dddddd;
+  border-radius: 5px;
+  float: right;
+}
+.add-supplier {
+  padding: 7px;
+  border: 1px solid #dddddd;
+  border-radius: 5px;
+  float: left;
+}
+.panel-default>.panel-heading {
+  text-align: center;
+}
+.form-control {
+  min-height: 40px !important;
+}

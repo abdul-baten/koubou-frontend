@@ -1,0 +1,38 @@
+
+.ng-valid[required], .ng-valid.required  {
+    border-left: 5px solid #42A948;
+  }
+
+  .ng-invalid:not(form)  {
+    border-left: 5px solid #a94442; /* red */
+  }
+
+  .entry:not(:first-of-type)
+  {
+      margin-top: 10px;
+  }
+
+  .glyphicon
+  {
+      font-size: 12px;
+  }
+  .add-suppliers-btn {
+    position: absolute;
+    bottom: 30px;
+    right: 45px;
+  }
+  .register-company {
+    margin-top: 30px;
+  }
+  .invalid-feedback {
+    color: red;
+  }
+  .no-padding {
+    padding: 0px;
+  }
+
+  @media (min-width: 320px) and (max-width: 767px) {
+    .no-padding-left-xs {
+      padding-left: 0;
+    }
+  }

@@ -1,0 +1,97 @@
+<router-outlet></router-outlet>
+<app-navigation></app-navigation>
+<div id="page-wrapper">
+  <div class="row" style="padding-top: 25px">
+    <div class="col-xs-12">
+      <div class="panel panel-default">
+        <div class=" col-xs-6 panel-heading">
+          会社情報
+        </div>
+        <div *ngIf="role == '2'" class="col-xs-6 panel-heading">
+
+        </div>
+        <div *ngIf="role == '1'" class="col-xs-6 panel-heading" style="text-align: right;">
+          <a routerLink="/update-company/{{id}}">編集</a>
+        </div>
+        <div class="panel-body no-padding-left-sm no-padding-right-sm" style="padding-top: 55px">
+          <div class="row">
+            <div class="col-xs-12 no-padding-xs no-padding-sm">
+              <form [formGroup]="orderForm" (ngSubmit)="onSubmit()" (keydown.enter)="$event.preventDefault()">
+                <div class="col-xs-12 no-padding-xs">
+                  <div class="col-xs-12">
+                    <div class="form-group">
+                      <p *ngIf="company$.company_name">{{company$.company_name}}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-12 no-padding-xs">
+                  <div class="col-sm-6 col-xs-12">
+                    <div class="form-group">
+                      <p *ngIf="company$.location">{{company$.location}}</p>
+                      <!--<textarea class="form-control" formControlName="location" readonly="readonly" autosize rows="1"></textarea>-->
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-xs-12">
+                    <div class="form-group">
+                      <p *ngIf="company$.phone_number">{{company$.phone_number}}</p>
+                      <!--<input type="text" class="form-control" formControlName="phone_number" readonly="readonly"/>-->
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-12 no-padding-xs">
+                  <div class="col-xs-12">
+                    <div class="form-group">
+                      <p *ngIf="company$.website_link">{{company$.website_link}}</p>
+                      <!--<input type="text" class="form-control" formControlName="website_link" readonly="readonly"/>-->
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-12 no-padding-xs">
+                  <div formArrayName="supplier" *ngFor="let item of orderForm.get('supplier').controls; let i = index;">
+                    <fieldset>
+                      <legend style="padding-left: 15px">取引先 - {{i+1}}</legend>
+                      <div class="ui raised segments" [formGroupName]="i">
+                        <div class="col-sm-6 col-xs-12">
+                          <div class="form-group">
+                            <input type="hidden" class="form-control" formControlName="id" placeholder="保険会社名" />
+                            <p *ngIf="company$.supplier[i].subCompanyName">{{company$.supplier[i].subCompanyName}}</p>
+                            <!--<textarea class="form-control" formControlName="subCompanyName" placeholder="保険会社名" readonly="readonly" autosize rows="1"></textarea>-->
+                          </div>
+                        </div>
+                        <div class="col-sm-6 col-xs-12">
+                          <div class="form-group">
+                            <p *ngIf="company$.supplier[i].departmentName">{{company$.supplier[i].departmentName}}</p>
+                            <!--<input type="text" class="form-control" formControlName="departmentName" placeholder="部署名" readonly="readonly"/>-->
+                          </div>
+                        </div>
+                        <div class="col-sm-6 col-xs-12">
+                          <div class="form-group">
+                            <p *ngIf="company$.supplier[i].location">{{company$.supplier[i].location}}</p>
+                            <!--<textarea class="form-control" formControlName="location" placeholder="所在地" readonly="readonly" autosize rows="1"></textarea>-->
+                          </div>
+                        </div>
+                        <div class="col-sm-6 col-xs-12">
+                          <div class="form-group">
+                            <p *ngIf="company$.supplier[i].phone">{{company$.supplier[i].phone}}</p>
+                            <!--<input type="text" class="form-control" formControlName="phone" placeholder="電話番号" readonly="readonly"/>-->
+                          </div>
+                        </div>
+
+                        <div class="col-xs-12">
+                          <div class="form-group">
+                            <p *ngIf="company$.supplier[i].representativeInCharge">{{company$.supplier[i].representativeInCharge}}</p>
+                            <!--<input type="text" class="form-control" formControlName="representativeInCharge" placeholder="担当者名" readonly="readonly"/>-->
+                          </div>
+                        </div>
+                      </div>
+                    </fieldset>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

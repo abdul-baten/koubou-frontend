@@ -1,0 +1,109 @@
+<router-outlet></router-outlet>
+<app-navigation></app-navigation>
+<div id="page-wrapper">
+  <div class="row" style="padding-top: 25px">
+    <div class="col-lg-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          会社情報
+        </div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-xs-12">
+              <form [formGroup]="orderForm" (ngSubmit)="onSubmit()" (keydown.enter)="$event.preventDefault()">
+                <div class="col-xs-12">
+                  <div class="col-xs-12">
+                    <div class="form-group">
+                      <input type="text" class="form-control" formControlName="company_name" placeholder="会社名" [ngClass]="{ 'is-invalid': submitted && f.company_name.errors }"  required>
+                      <div *ngIf="submitted && f.company_name.errors" class="invalid-feedback">
+                        <div *ngIf="f.company_name.errors.required">Company Name is required</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-12">
+                  <div class="col-xs-6">
+                    <div class="form-group">
+                      <textarea class="form-control" formControlName="location"  placeholder="所在地" [ngClass]="{ 'is-invalid': submitted && f.location.errors }" required autosize rows="1" (keypress)="stopEnter($event)" rows="1"></textarea>
+                      <div *ngIf="submitted && f.location.errors" class="invalid-feedback">
+                        <div *ngIf="f.location.errors.required">Location is required</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-6">
+                    <div class="form-group">
+                      <input type="text" class="form-control" formControlName="phone_number" placeholder="電話番号" [ngClass]="{ 'is-invalid': submitted && f.phone_number.errors }" required />
+                        <div *ngIf="submitted && f.phone_number.errors" class="invalid-feedback">
+                          <div *ngIf="f.phone_number.errors.required">Phone number is required</div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-12">
+                  <div class="col-xs-12">
+                    <div class="form-group">
+                      <input type="text" class="form-control" formControlName="website_link" placeholder="ホームページリンク" [ngClass]="{ 'is-invalid': submitted && f.website_link.errors }" required />
+                      <div *ngIf="submitted && f.website_link.errors" class="invalid-feedback">
+                        <div *ngIf="f.website_link.errors.required">Website Link is required</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-12">
+                  <div formArrayName="supplier" *ngFor="let item of orderForm.get('supplier').controls; let i = index;">
+                    <fieldset>
+                      <legend>取引先 - {{i+1}}</legend>
+                      <div class="ui raised segments" [formGroupName]="i">
+                        <div class="col-xs-6">
+                          <div class="form-group">
+                            <input type="hidden" class="form-control" formControlName="id" placeholder="保険会社名" />
+                            <textarea type="text" class="form-control" formControlName="subCompanyName" placeholder="保険会社名" autosize rows="1" (keypress)="stopEnter($event)"></textarea>
+                          </div>
+                        </div>
+                        <div class="col-xs-6">
+                          <div class="form-group">
+                            <input type="text" class="form-control" formControlName="departmentName" placeholder="部署名" />
+                          </div>
+                        </div>
+                        <div class="col-xs-6">
+                          <div class="form-group">
+                            <textarea type="text" class="form-control" formControlName="location" placeholder="所在地" autosize rows="1" (keypress)="stopEnter($event)"></textarea>
+                          </div>
+                        </div>
+                        <div class="col-xs-6">
+                          <div class="form-group">
+                            <input type="text" class="form-control" formControlName="phone" placeholder="電話番号" (keypress)="keyPress($event)" />
+                          </div>
+                        </div>
+
+                        <div class="col-xs-12">
+                          <div class="form-group">
+                            <input type="text" class="form-control" formControlName="representativeInCharge" placeholder="担当者名" />
+                          </div>
+                        </div>
+                      </div>
+                    </fieldset>
+                  </div>
+                  <div class="col-xs-12 no-padding">
+                    <div class="col-xs-3">
+                      <a class="add-supplier" (click)="addItem()">取引先を追加</a>
+                    </div>
+                    <div class="col-xs-9">
+                      <a class="remove-supplier" (click)="removedItem(orderForm.get('supplier').length)">
+                        取引先を削除</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-12">
+                  <div class="col-xs-4 col-xs-offset-4">
+                    <button class="form-control register-company btn btn-primary" type="submit">保存する</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

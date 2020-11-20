@@ -1,0 +1,633 @@
+<router-outlet></router-outlet>
+<app-navigation></app-navigation>
+
+<div id="page-wrapper">
+  <div class="row" style="padding-top: 25px">
+    <div class="col-lg-12">
+      <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+        <div class="panel panel-default">
+          <div class="col-xs-12 panel-heading">
+            案件情報
+          </div>
+          <div class="panel-body" style="padding-top: 55px">
+            <div class="panel-body no-padding-left-xs no-padding-right-xs">
+              <div class="row">
+                <div class="col-xs-12">
+                  <div class="form-group">
+                    <input type="hidden" class="form-control" formControlName="id" />
+                    <input type="hidden" class="form-control" formControlName="userId" />
+                    <textarea class="form-control" formControlName="name" placeholder="案件名" required
+                      [ngClass]="{ 'is-invalid': submitted && data.name.errors }" (keypress)="stopEnter($event)"
+                      autosize rows="1"></textarea>
+                    <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                      <div *ngIf="f.name.errors.required">案件名を入力してください</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-12 no-padding">
+                  <div class="col-xs-6">
+                    <div class="form-group">
+                      <select class="form-control" formControlName="status" required>
+                        <option value="">ステータス</option>
+                        <option *ngFor="let status of status" value="{{status}}">{{status}}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-xs-6">
+                    <div class="form-group">
+                      <select *ngIf="role == '1'" class="form-control" formControlName="userId" required>
+                        <option *ngFor="let sales of sales$" [value]="sales.id">{{sales.last_name}} {{sales.first_name}}
+                        </option>
+                      </select>
+                      <div class="" *ngIf="role == '2'">
+                        <input type="hidden" formControlName="userId">
+                        <input type="text" class="form-control" readonly value="{{name}}">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div formArrayName="clientInformation"
+          *ngFor="let item of myForm.get('clientInformation').controls; let i = index;">
+          <div [formGroupName]="i">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                顧客情報
+              </div>
+              <div class="panel-body no-padding-left-xs no-padding-right-xs">
+                <div class="col-xs-12 no-padding">
+                  <div class="col-sm-6 col-xs-12">
+                    <div class="form-group">
+                      <input type="hidden" class="form-control" formControlName="id" />
+                      <textarea class="form-control" formControlName="clientName" placeholder="法人名"
+                        (keypress)="stopEnter($event)" autosize rows="1"></textarea>
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-xs-12">
+                    <div class="form-group">
+                      <textarea class="form-control" formControlName="corporateName" placeholder="法人名カナ"
+                        (keypress)="stopEnter($event)" autosize rows="1"></textarea>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-12 no-padding">
+                  <div class="col-sm-6 col-xs-12">
+                    <div class="form-group">
+                      <textarea d="textarea" class="form-control" formControlName="location" autosize
+                        (keypress)="stopEnter($event)" rows="1" placeholder="所在地"></textarea>
+                      <!--<textarea class="form-control" autosize>This is a long text and it should go long sadfdjskf afjcsdfkasnsd
+                        sldkjfkl safjsdlfsdlkfjlskd adsnfl df adsfjldsafmklsdamc
+                        fsdfs;ldkjfl sadfasdf</textarea>-->
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-xs-12">
+                    <div class="form-group">
+                      <input class="form-control" type="text" formControlName="phone" placeholder="法人電話番号">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-12 no-padding">
+                  <div class="col-sm-6 col-xs-12">
+                    <div class="form-group">
+                      <textarea class="form-control" formControlName="industry" placeholder="業種"
+                        (keypress)="stopEnter($event)" autosize rows="1"></textarea>
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-xs-12">
+                    <div class="form-group">
+                      <select class="form-control" formControlName="settlementMonth">
+                        <option value="">決算月</option>
+                        <option *ngFor="let month of month" [value]="month">{{month}}</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-xs-12 no-padding">
+                  <div class="col-sm-6 col-xs-12">
+                    <div class="form-group">
+                      <textarea class="form-control" formControlName="enrolledInsurance" placeholder="既加入保険"
+                        (keypress)="stopEnter($event)" autosize rows="1"></textarea>
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-xs-12">
+                  </div>
+                </div>
+
+                <div class="col-xs-12 no-padding">
+                  <div class="col-sm-6 col-xs-12">
+                    <div class="form-group">
+                      <textarea class="form-control" formControlName="representativeName" placeholder="【代表者】氏名"
+                        (keypress)="stopEnter($event)" autosize rows="1"></textarea>
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-xs-12">
+                    <div class="form-group">
+                      <textarea class="form-control" formControlName="representativeNameCeo" placeholder="【代表者】氏名カナ"
+                        (keypress)="stopEnter($event)" autosize rows="1"></textarea>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-xs-12 no-padding">
+                  <div class="col-sm-6 col-xs-12">
+                    <div class="form-group">
+                      <mat-form-field>
+                        <input matInput formControlName="representativeBirthday" [matDatepicker]="picker"
+                          placeholder="代表者生年月日">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker [startAt]="startDate"></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-xs-12">
+                    <div class="form-group">
+                      <select class="form-control" formControlName="representativePersonSex">
+                        <option value="">【代表者】性別</option>
+                        <option *ngFor="let sex of gender" [value]="sex">{{sex}}</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div formArrayName="officer" *ngFor="let item of myForm.get('officer').controls; let i = index;">
+          <div [formGroupName]="i">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                役員 - {{i+1}}
+              </div>
+              <div class="panel-body no-padding-right-xs no-padding-left-xs">
+                <div class="col-xs-12 no-padding">
+                  <div class="col-xs-12 no-padding">
+                    <div class="col-sm-6 col-xs-12">
+                      <div class="form-group">
+                        <input type="hidden" class="form-control" formControlName="id" />
+                        <textarea class="form-control" formControlName="officerName" placeholder="氏名"
+                          (keypress)="stopEnter($event)" autosize rows="1"></textarea>
+                      </div>
+                    </div>
+                    <div class="col-sm-6 col-xs-12">
+                      <div class="form-group">
+                        <textarea class="form-control" formControlName="officerNickName" placeholder="氏名カナ"
+                          (keypress)="stopEnter($event)" autosize rows="1"></textarea>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 no-padding">
+                    <div class="col-sm-6 col-xs-12">
+                      <div class="form-group">
+                        <mat-form-field>
+                          <input matInput formControlName="officierBirthday" [matDatepicker]="picker"
+                            placeholder="生年月日">
+                          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                          <mat-datepicker #picker [startAt]="startDate"></mat-datepicker>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="col-sm-6 col-xs-12">
+                      <div class="form-group">
+                        <select class="form-control" formControlName="offcierSex">
+                          <option value="">性別</option>
+                          <option *ngFor="let sex of gender" [value]="sex">{{sex}}</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 no-padding">
+                    <div class="col-sm-6 col-xs-12">
+                      <div class="form-group">
+                        <textarea class="form-control" formControlName="officierPosition" placeholder="役職"
+                          (keypress)="stopEnter($event)" autosize rows="1"></textarea>
+                      </div>
+                    </div>
+                    <div class="col-sm-6 col-xs-12">
+                      <div class="form-group">
+                        <textarea class="form-control" formControlName="officerRelationWithReprentative"
+                          placeholder="代表との関係性" autosize (keypress)="stopEnter($event)" rows="1"></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel panel-default">
+          <div class="col-xs-12 panel-heading" style="margin-bottom: 10px">
+            <div class="col-xs-12 no-padding-xs">
+              <div class="col-sm-10 col-xs-10 no-padding-xs">
+                <div class="col-xs-12 no-padding">
+                  <div class="col-xs-12 col-md-10">
+                    <h4>ヒアリング</h4>
+                    <p>お客様のご意向について</p>
+                    <p>※最初に印のついた項目の下のご希望項目の有無をチェック</p>
+                    <p>チェックが入った項目があれば、その属する印のご意向にチェックを入れる</p>
+                  </div>
+                  <div class="col-xs-12 col-md-2">
+                    <div class="sync">
+                      <span>同期</span> <br />
+                      <!--<input type="checkbox" (change)="checkSecondIntention($event)" class="btn btn-primary">-->
+
+                      <label class="container-check">
+                        <input style="height: 13px;" type="checkbox" formControlName="answer" value="yes"
+                          (change)="copyFirstIntention($event)" />
+                        <span class="checkmark update-checkmark "></span>
+                      </label>
+                      <!-- <input type="checkbox" (change)="copyFirstIntention($event)"> -->
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-xs-12 col-md-2">
+                  ご確認日
+                </div>
+
+                <div class="col-md-5 col-xs-12 no-padding-xs">
+                  <div formArrayName="firstIntentionDate"
+                    *ngFor="let hero of myForm.get('firstIntentionDate').controls; let i = index;">
+                    <div [formGroupName]="i">
+                      <div class="col-xs-3 col-sm-2 no-padding">
+                        <p class="margin-top-10">記入日</p>
+                      </div>
+                      <div class="col-xs-9 col-sm-10 no-padding-right-xs">
+                        <div class="form-group">
+                          <input class="form-control" type="hidden" formControlName="id">
+                          <input class="form-control" type="hidden" formControlName="entity">
+                          <input class="form-control" type="date" formControlName="intentionDate">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-5 col-xs-12 no-padding-xs">
+                  <div formArrayName="secondIntentionDate"
+                    *ngFor="let hero of myForm.get('secondIntentionDate').controls; let i = index;">
+                    <div [formGroupName]="i">
+
+                      <div class="col-xs-3 col-sm-2 no-padding">
+                        <p class="margin-top-10">最終：</p>
+                      </div>
+                      <div class="col-xs-9 col-sm-10 no-padding-right-xs">
+                        <div class="form-group">
+                          <input class="form-control" type="hidden" formControlName="id">
+                          <input class="form-control" type="hidden" formControlName="entity">
+                          <input class="form-control" type="date" formControlName="intentionDate">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-1 col-xs-1 no-padding-xs">
+                当<br />
+                初<br />
+                の<br />
+                ご<br />
+                意<br />
+                向
+              </div>
+              <div class="col-sm-1 col-xs-1 no-padding-xs">
+                最<br />
+                終<br />
+                的<br />
+                な<br />
+                ご<br />
+                意<br />
+                向<br />
+              </div>
+            </div>
+          </div>
+
+          <div class="panel-body">
+            <div class="row no-padding">
+              <div class="col-xs-11 no-padding-xs">
+                <div formArrayName="firstIntentionsFixed"
+                  *ngFor="let hero of myForm.get('firstIntentionsFixed').controls; let i = index;" [attr.data-index]="i"
+                  [class]="'question-height question-name'+(i+1)">
+                  <div [formGroupName]="i">
+                    <div class="col-xs-11 no-padding-right-xs">
+                      <div class="form-group">
+                        <input type="hidden" class="form-control" formControlName="id" />
+                        <input class="form-control" type="text" formControlName="questionName" readonly="readonly">
+                      </div>
+                    </div>
+                    <div class="col-xs-1 text-center border">
+                      <div class="form-group">
+                        <!-- <input type="checkbox" formControlName="answer" value="yes" (change)="checkQuestion(i)"> -->
+                        <label class="container-check">
+                          <input style="height: 13px;" type="checkbox" formControlName="answer" value="yes"
+                            (change)="checkQuestion(i)" />
+                          <span class="checkmark"></span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-1 no-padding-xs">
+                <div formArrayName="secondIntentionsFixed"
+                  *ngFor="let hero of myForm.get('secondIntentionsFixed').controls; let i = index;"
+                  [ngClass]="{ odd: odd, even: even }" [attr.data-index]="i"
+                  [class]="'question-height question-name'+(i+1)">
+                  <div [formGroupName]="i">
+                    <!--<div class="col-xs-1">
+                      <div class="form-group">-->
+                    <input type="hidden" class="form-control" formControlName="id" />
+                    <input class="form-control" type="hidden" formControlName="questionName" readonly="readonly">
+                    <!--</div>
+                    </div>-->
+                    <div class="col-xs-12 no-padding text-center border">
+                      <div class="form-group">
+                        <!-- <input style="height: 13px;" type="checkbox" formControlName="answer" value="yes"
+                          (change)="checkedSecondIntention"> -->
+
+                        <label class="container-check">
+                          <input style="height: 13px;" type="checkbox" formControlName="answer" value="yes"
+                            (change)="checkedSecondIntention" />
+                          <span class="checkmark"></span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row no-padding">
+              <div class="col-xs-11 no-padding-xs">
+                <div formArrayName="intentionsDaynamic"
+                  *ngFor="let item of myForm.get('intentionsDaynamic').controls; let i = index;">
+                  <div [formGroupName]="i">
+                    <div class="col-xs-12 no-padding">
+                      <div class="col-xs-11 no-padding-right-xs">
+                        <div class="form-group">
+                          <input type="hidden" class="form-control" formControlName="id" />
+                          <input class="form-control" type="text" formControlName="questionName">
+                        </div>
+                      </div>
+                      <div class="col-xs-1 no-padding border text-center">
+                        <div class="form-group">
+                          <!-- <input type="checkbox" formControlName="answer" value="yes"> -->
+                          <label class="container-check">
+                            <input style="height: 13px;" type="checkbox" formControlName="answer" value="yes" />
+                            <span class="checkmark"></span>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-1 no-padding-xs">
+                <div formArrayName="secondIntentionsDaynamic"
+                  *ngFor="let item of myForm.get('secondIntentionsDaynamic').controls; let i = index;">
+                  <div [formGroupName]="i">
+                    <div class="col-xs-12 no-padding">
+
+                      <input type="hidden" class="form-control" formControlName="id" />
+                      <input class="form-control" type="hidden" formControlName="questionName" />
+
+                      <div class="col-xs-12 no-padding border text-center">
+                        <div class="form-group">
+                          <!-- <input type="checkbox" formControlName="answer" value="yes" style="height: 13px" /> -->
+                          <label class="container-check">
+                            <input style="height: 13px;" type="checkbox" formControlName="answer" value="yes" />
+                            <span class="checkmark"></span>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-xs-12">
+                <div class="col-xs-3" style="margin-top: 10px">
+                  <a class="btn-case text-right" (click)="addFirstInterviewContentDaynamic()"> 追加 </a>
+                </div>
+                <div class="col-xs-9 text-right" style="margin-top: 20px">
+                  <a class="btn-case" (click)="removedIntent(myForm.get('intentionsDaynamic').length)">
+                    行の削除</a>
+                </div>
+              </div>
+              <div class="col-xs-12 no-padding-xs">
+                <div formArrayName="othernotes" *ngFor="let item of myForm.get('othernotes').controls; let i = index;">
+                  <div [formGroupName]="i">
+                    <div class="col-xs-12" style="margin-top: 20px;">
+                      <label>その他のご希望</label>
+                      <div class="form-group">
+                        <input class="form-control" type="hidden" formControlName="id">
+                        <input class="form-control" type="hidden" formControlName="entity">
+                        <textarea class="form-control" formControlName="different" (keypress)="stopEnter($event)"
+                          autosize rows="3"></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-12 no-padding-xs">
+                <div formArrayName="differentBetween"
+                  *ngFor="let item of myForm.get('differentBetween').controls; let i = index;">
+                  <div [formGroupName]="i">
+                    <div class="col-xs-12">
+                      <label>当初と最終との差異の説明</label>
+                      <div class="form-group">
+                        <input class="form-control" type="hidden" formControlName="id">
+                        <input class="form-control" type="hidden" formControlName="entity">
+                        <textarea class="form-control" formControlName="different" rows="3" autosize></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!--<div class="panel panel-default">
+          <div class="panel-heading">
+            ヒアリング：最終的なご意向
+          </div>
+
+          <div class="col-xs-12 panel-heading" style="margin-bottom: 10px">
+            <div class="col-xs-4" style="padding-left: 0px">
+              <p>記入日</p>
+
+            </div>
+            <div class="col-xs-6">
+              <p>お客様のご意向について
+                <br/> ※最初に印のついた項目の下のご希望項目の有無をチェック チェックが入った項目があれば、その属する印のご意向にチェックを入れる
+              </p>
+            </div>
+            <div class="col-xs-2">
+            </div>
+          </div>
+
+          <div class="panel-body">
+            <div class="row no-padding">
+
+            </div>
+
+            <div class="col-xs-12 no-padding">
+
+              <div class="col-xs-12 no-padding">
+                <div class="col-xs-3 no-padding">
+                  <a class="btn-case" (click)="addSecondInterviewContentDaynamic()">追加</a>
+                </div>
+                <div class="col-xs-9 text-right">
+                  <a class="btn-case" (click)="removedSecondIntention(myForm.get('secondIntentionsDaynamic').length)">
+                    行の削除</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>-->
+
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            商談履歴
+          </div>
+          <div class="panel-body">
+            <div class="col-xs-12 no-padding">
+              <div formArrayName="negotiationHistory"
+                *ngFor="let item of myForm.get('negotiationHistory').controls; let i = index;">
+                <div [formGroupName]="i">
+                  <div class="col-xs-12 no-padding">
+                    <div class="col-md-3 col-xs-12 no-padding">
+                      <label>対応日 {{i+1}}</label>
+                      <div class="form-group">
+                        <input type="hidden" class="form-control" formControlName="id" />
+                        <input class="form-control" type="date" formControlName="number" min="1900-01-01">
+                      </div>
+                    </div>
+                    <div class="col-md-3 col-xs-12 no-padding">
+                      <label>内容 {{i+1}}</label>
+                      <div class="form-group">
+                        <textarea class="form-control" formControlName="content" autosize (keypress)="stopEnter($event)"
+                          rows="1"></textarea>
+                      </div>
+                    </div>
+                    <div class="col-md-3 col-xs-12 no-padding">
+                      <label>対応場所 {{i+1}}</label>
+                      <div class="form-group">
+                        <textarea class="form-control" formControlName="location" autosize
+                          (keypress)="stopEnter($event)" rows="1"></textarea>
+                      </div>
+                    </div>
+                    <div class="col-md-3 col-xs-12 no-padding">
+                      <label>同席者 {{i+1}}</label>
+                      <div class="form-group">
+                        <textarea class="form-control" formControlName="numberOfAttendant" autosize
+                          (keypress)="stopEnter($event)" rows="1"></textarea>
+
+                      </div>
+                    </div>
+                    <div class="col-md-2 col-md-offset-10 col-xs-4 col-xs-offset-8 no-padding-xs"
+                      style="margin-bottom: 10px; text-align: right">
+                      <a class="btn-case" (click)="removeNegotiationHistory(i)">
+                        行の削除</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-12 no-padding">
+                <div class="col-xs-3 ">
+                  <a class="btn-case" (click)="addNegotiationHistory()">追加</a>
+                </div>
+                <div class="col-xs-9 text-right">
+                  <!--<a class="btn-case" (click)="removedNegotiationHistory(myForm.get('negotiationHistory').length)">
+                    2</a>-->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            情報提供の記録
+          </div>
+          <div class="panel-body">
+            <div class="col-xs-12 no-padding">
+              <div formArrayName="provisionRecord"
+                *ngFor="let item of myForm.get('provisionRecord').controls; let i = index;">
+                <div [formGroupName]="i">
+                  <div class="col-xs-12 no-padding">
+                    <div class="col-xs-12 col-md-2 no-padding">
+                      <label>ご提案商品 {{i+1}}</label>
+                      <div class="form-group">
+                        <input type="hidden" class="form-control" formControlName="id" />
+                        <textarea class="form-control" formControlName="productName" autosize
+                          (keypress)="stopEnter($event)" rows="1"></textarea>
+                      </div>
+                    </div>
+                    <div class="col-md-4 col-xs-12 no-padding">
+                      <label>使用した資料 {{i+1}}</label>
+                      <div class="form-group">
+                        <textarea class="form-control" formControlName="materials" autosize
+                          (keypress)="stopEnter($event)" rows="1"></textarea>
+                      </div>
+                    </div>
+                    <div class="col-md-3 col-xs-12 no-padding">
+                      <label>ご説明内容 {{i+1}}</label>
+                      <div class="form-group">
+                        <textarea class="form-control" formControlName="reasonOfSelection" autosize
+                          (keypress)="stopEnter($event)" rows="1"></textarea>
+                      </div>
+                    </div>
+                    <div class="col-md-2 col-xs-9 no-padding">
+                      <label>提供日 {{i+1}}</label>
+                      <div class="form-group">
+                        <input class="form-control" type="date" formControlName="date" min="1900-01-01"
+                          max="2019-12-31">
+                      </div>
+                    </div>
+                    <div class="col-md-1 col-xs-3">
+                      <label>成約 </label>
+                      <div class="form-group">
+                        <!-- <input type="checkbox" formControlName="contract" value="yes"> -->
+                        <label class="container-check">
+                          <input style="height: 13px;" type="checkbox" formControlName="answer" value="yes" />
+                          <span class="checkmark update-checkmark-end"></span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-2 col-md-offset-10 col-xs-4 col-xs-offset-8 no-padding-xs"
+                    style="margin-bottom: 10px">
+                    <a class="btn-case " (click)="removeProvisionRecord(i)">
+                      行の削除</a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-12 no-padding">
+                <div class="col-xs-3">
+                  <a class="btn-case" (click)="addProvisionRecord()">追加</a>
+                </div>
+                <div class="col-xs-9 text-right">
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12" style="padding-bottom: 15px">
+          <div class="col-xs-4 col-xs-offset-4">
+            <button class="btn btn-primary btn-block button">更新</button>
+          </div>
+          <div class="col-xs-offset-2 col-xs-2">
+            <a routerLink="/edit-case/{{id}}" class="btn btn-primary">戻る</a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,65 @@
+<router-outlet></router-outlet>
+<app-navigation></app-navigation>
+
+<div id="page-wrapper">
+  <div class="col-sm-6 col-xs-12">
+    <h2 class="text-center">営業担当者情報</h2>
+    <ul class="salesman-details">
+      <li>名</li>
+      <li>{{salesMan$.last_name}}</li>
+      <li>姓</li>
+      <li>{{salesMan$.first_name}}</li>
+      <li>姓（カナ）</li>
+      <li>{{salesMan$.last_pronunciotion}}</li>
+      <li>名（発音）</li>
+      <li>{{salesMan$.first_pronunciotion}}</li>
+      <li>社員番号</li>
+      <li>{{salesMan$.salse_person_number}}</li>
+      <li>電話番号</li>
+      <li>{{salesMan$.phone_number}}</li>
+      <li>生年月日</li>
+      <li>{{salesMan$.birthday}}</li>
+      <li>性別</li>
+      <li>{{salesMan$.gender}}</li>
+      <li>権限</li>
+      <li *ngIf="salesMan$?.role == '1'">マネージャー</li>
+      <li *ngIf="salesMan$?.role == '2'">営業担当者</li>
+      <li>所属</li>
+      <li>{{salesMan$?.team}}</li>
+      <li>備考 1</li>
+      <li>{{salesMan$?.remark_1}}</li>
+      <li>備考 2</li>
+      <li>{{salesMan$?.remark_2}}</li>
+    </ul>
+  </div>
+  <div class="col-sm-6 col-xs-12">
+    <h2 class="text-center">担当案件</h2>
+    <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+      <thead>
+      <tr>
+        <th>案件名</th>
+        <th>ステータス</th>
+        <th>更新日</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr class="odd gradeX" *ngFor="let company of salesMan$.caseContents">
+        <td>
+          <a routerLink="/edit-case/{{company.id}}"> {{company.name}}</a>
+        </td>
+        <td>
+          <a routerLink="/edit-case/{{company.id}}">{{company.status}}</a>
+        </td>
+        <td><a routerLink="/edit-case/{{company.id}}">{{company.createdAt}}</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="col-xs-4 col-xs-offset-4">
+      <a routerLink="/salesperson-list" class="btn btn-primary form-control register-company">戻る</a>
+    </div>
+  </div>
+
+
+</div>

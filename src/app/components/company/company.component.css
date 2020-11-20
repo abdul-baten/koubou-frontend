@@ -1,0 +1,52 @@
+.no-padding {
+  padding: 0;
+}
+.suppliers-text p{
+  background-color: #f5f5f5;
+  margin-bottom: 15px;
+  padding: 10px;
+}
+
+.ng-valid[required], .ng-valid.required  {
+  border-left: 5px solid #42A948; /* green */
+}
+
+.ng-invalid:not(form)  {
+  border-left: 5px solid #a94442; /* red */
+}
+
+.entry:not(:first-of-type)
+{
+    margin-top: 10px;
+}
+
+.glyphicon
+{
+    font-size: 12px;
+}
+.add-suppliers-btn {
+  position: absolute;
+  bottom: 30px;
+  right: 45px;
+}
+.register-company {
+  margin-top: 30px;
+}
+.remove-supplier {
+  padding: 7px;
+  border: 1px solid #dddddd;
+  border-radius: 5px;
+  float: right;
+}
+.add-supplier {
+  padding: 7px;
+  border: 1px solid #dddddd;
+  border-radius: 5px;
+  float: left;
+}
+.panel-default>.panel-heading {
+  text-align: center;
+}
+.form-control {
+  min-height: 40px !important;
+}

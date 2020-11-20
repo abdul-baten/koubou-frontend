@@ -1,0 +1,51 @@
+<router-outlet></router-outlet>
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand" [routerLink]="['/dashboard']">KOUBOU</a>
+  </div>
+  <!-- /.navbar-header -->
+
+  <ul class="nav navbar-top-links navbar-right">
+    <li><a (click)="logout()"><i class="fa fa-sign-out fa-fw"></i> ログアウト</a>
+  </ul>
+  <!-- /.navbar-top-links -->
+  <div id="navbar" class="navbar-collapse collapse sidebar" role="navigation">
+    <div class="sidebar-nav">
+      <ul class="nav navbar-nav" style="width: 100%" id="side-menu">
+        <li>
+          <a md-button routerLink="/dashboard"> ダッシュボード</a>
+        </li>
+        <li *ngIf="role == '1'">
+          <a md-button routerLink="/sales"> 営業担当者登録</a>
+        </li>
+        <li *ngIf="role == '1'">
+          <a md-button routerLink="/salesperson-list"> 営業担当者一覧</a>
+        </li>
+        <li>
+          <a md-button routerLink="/cases"> 案件登録</a>
+        </li>
+        <li>
+          <a md-button routerLink="/case-list" id="caseList" > 案件一覧</a>
+        </li>
+        <li>
+          <a md-button routerLink="/setting"> 一覧へ表示する項目の選択</a>
+        </li>
+        <!--<li *ngIf="role == '1'">
+          <a md-button routerLink="/company">会社情報登録</a>
+        </li>-->
+        <li >
+          <a md-button routerLink="/company-information/1">会社情報表示</a>
+        </li>
+      </ul>
+    </div>
+    <!-- /.sidebar-collapse -->
+  </div>
+  <!-- /.navbar-static-side -->
+</nav>
